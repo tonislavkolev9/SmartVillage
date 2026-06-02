@@ -1,5 +1,6 @@
 #include <iostream>
 #include "VillageSystem.h"
+#include "JobTaken.h"
 
 using std::cout;
 using std::endl;
@@ -32,6 +33,12 @@ void VillageSystem::addService(int type, string name, string desc) {
 
 void VillageSystem::createJob(int villagerIndex) {
     Villager v = users.getVillager(villagerIndex);
+
+    if (JobTaken::hasExistingJob(v, jobs, jobCount)) {
+        cout << v.getName() << " already has a job offer." << endl;
+        return;
+    }
+
     jobs[jobCount] = JobOffer(v);
     jobCount++;
 }
